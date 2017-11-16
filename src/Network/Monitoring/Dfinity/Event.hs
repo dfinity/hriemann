@@ -16,13 +16,13 @@ type Kind = String
 toService :: Kind -> Height -> String
 toService kind height = kind ++ "-" ++ show height
 
-sendBlock :: Node -> Timestamp -> Height -> Rank -> Event
-sendBlock node ts height rank = let kind = "send-block" in
-  ok (toService kind height) $ timestamp (fromIntegral ts) <> nhrk node height rank kind 
+sendBlock :: Node -> Height -> Rank -> Event
+sendBlock node height rank = let kind = "send-block" in
+  ok (toService kind height) $ nhrk node height rank kind 
 
-recvBlock :: Node -> Timestamp -> Height -> Rank -> Duration -> Event
-recvBlock node ts height rank dt = let kind = "recv-block" in
-  ok (toService kind height) $ timestamp (fromIntegral ts) <> metric dt <> nhrk node height rank kind 
+recvBlock :: Node -> Height -> Rank -> Duration -> Event
+recvBlock node height rank dt = let kind = "recv-block" in
+  ok (toService kind height) $ metric dt <> nhrk node height rank kind 
 
 blockLatency :: Node -> Height -> Duration -> Event
 blockLatency node height dt = let kind = "block-latency" in
