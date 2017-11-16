@@ -38,6 +38,7 @@ library
                      , text == 1.2.*
                      , containers == 0.5.*
                      , binary == 0.8.*
+                     , BoundedChan == 1.0.3.0
                      , time >= 1.6
                      , hostname == 1.0.*
                      , unagi-chan == 0.4.*
