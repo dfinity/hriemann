@@ -1,7 +1,8 @@
-module Network.Monitoring.Dfinity.Event (sendBlock, recvBlock, blockLatency) where
+module Network.Monitoring.Dfinity.Event (sendBlock, recvBlock, blockLatency, livenessEvent) where
 
 import Data.Monoid (Endo, (<>))
 import Network.Monitoring.Riemann.Event.Monoid
+import qualified Network.Monitoring.Riemann.Event as RE
 
 -- Timestamp and Duration are both in milliseconds
 type Timestamp = Int
@@ -12,6 +13,9 @@ type Size = Int
 type Rank = Int
 type Percentage = Int
 type Kind = String
+
+livenessEvent :: Event
+livenessEvent = RE.ok "liveness"
 
 toService :: Kind -> Height -> String
 toService kind height = kind ++ "-" ++ show height
