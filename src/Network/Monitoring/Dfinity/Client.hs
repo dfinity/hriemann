@@ -27,8 +27,9 @@ livenessDelay = 5 * 1000 * 1000 -- 5s
 
 newtype Client = Client (BoundedChan Event)
 
-send :: Client -> Event -> IO ()
-send (Client ch) ev = void $ tryWriteChan ch ev
+send :: Maybe Client -> Event -> IO ()
+send (Just (Client ch)) ev = void $ tryWriteChan ch ev
+send Nothing _ = return ()
 
 -- Establish connection with a monitoring server and returns a client.
 connect :: String -> IO Client
